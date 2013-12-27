@@ -1,5 +1,31 @@
 'use strict';
 
+/** Преобразует таблицу в вещественный массив */
+function convertTable2Array(table) {
+    var a = [];
+    for (var i=1; i<table.length; i++) {
+        var row = table[i];
+        a[i-1] = [];
+        for (var j=1; j<row.length; j++) {
+            a[i-1][j-1] = parseFloat(row[j].val);
+        }
+    }
+
+    return a;
+}
+
+/** Загрузка данных в таблицу */
+function loadData(data, table) {
+    for (var i=0; i<table.length; i++) {
+        var columns = table[i].length;
+        for (var j=0; j<columns; j++) {
+            var val = data[(i)*(columns)+(j)];
+            var title = i == 0 || j == 0;
+            table[i][j] = new Data(val, title);
+        }
+    }
+}
+
 /** Возвращает номированные факторы */
 function getNormFactors(a) {
     var normArray = [];
@@ -13,7 +39,7 @@ function getNormFactors(a) {
             if (row[j] < xiMin) xiMin = row[j];
             if (row[j] > xiMax) xiMax = row[j];
         }
-        //Вычисляем xi0, интервал изменения фактора dxi
+        //Вычисляем Xi0 и интервал изменения фактора dXi
         var xi0 = (xiMax + xiMin)/2;
         var dxi = xi0 - xiMin; //xiMax - xi0;
         console.log(i+1, 'min:', xiMin, 'max:', xiMax, 'xi0:', xi0, 'dxi:', dxi);
