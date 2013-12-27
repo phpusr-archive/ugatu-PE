@@ -2,15 +2,13 @@
 
 var app = angular.module('myApp', ['ngSanitize']);
 app.controller('MyCtrl', function MyCtrl($scope) {
-    $scope.subject = 'ТПР';
-    $scope.lab = 'Лаба 2 (Критерий Байеса-Лапласа)';
+    $scope.subject = 'ПЭ';
+    $scope.lab = 'РГР';
     var rows = 0, columns = 0;
 
     $scope.changeParams = function() {
 
         if ($scope.rows != null && $scope.columns != null) {
-            //Вероятность (события равновероятны)
-            $scope.p = (1/$scope.rows).toFixed(3);
 
             //Заголовки
             rows = $scope.rows+1;
@@ -43,37 +41,12 @@ app.controller('MyCtrl', function MyCtrl($scope) {
     $scope.changeTable = function() {
         //console.log('table', $scope.table);
 
-        $scope.sums = [];
-        $scope.maxRow = 0;
-        $scope.maxSum = 0;
-
-        for (var i=1; i<rows; i++) {
-            var rowSum = 0;
-            $scope.sums[i-1] = '(';
-            for (var j=1; j<columns; j++) {
-                var val = parseInt($scope.table[i][j].val);
-                rowSum += val;
-                $scope.sums[i-1] += val;
-                if (j < columns-1) $scope.sums[i-1] += ' + '
-            }
-            rowSum *= $scope.p;
-            if (rowSum > $scope.maxSum) {
-                $scope.maxSum = rowSum;
-                $scope.maxRow = i;
-            }
-            $scope.sums[i-1] += ') * ' + $scope.p + ' = ' + rowSum;
-        }
-		
-		$scope.count = $scope.table[$scope.maxRow][0].val;
     };
 
     /** Заполнение значениями по умолчанию */
     $scope.stdFill = function() {
         $scope.rows = 4;
         $scope.columns = 4;
-        $scope.rowsName = 'рабочих';
-        $scope.columnsName = 'станки';
-        $scope.valueSum = 'прибылью';
 
         $scope.changeParams();
         loadData([
