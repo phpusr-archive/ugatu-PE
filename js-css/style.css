@@ -27,3 +27,7 @@ input.min-size {
 td.title input {
     font-weight: bold;
 }
+
+div.matrix table {
+    width: auto;
+}

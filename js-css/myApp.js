@@ -4,7 +4,7 @@ var app = angular.module('myApp', ['ngSanitize']);
 app.controller('MyCtrl', function MyCtrl($scope) {
     $scope.subject = 'ПЭ';
     $scope.lab = 'РГР (Вариант 13)';
-    var rows = 0, columns = 0;
+    var rows = 0, columns = 0; //TODO возможно стоит убрать в ф-ю
 
     $scope.changeParams = function() {
 
@@ -57,6 +57,8 @@ app.controller('MyCtrl', function MyCtrl($scope) {
         var a = convertTable2Array($scope.table);
         console.log('array', a);
 
+        //Нормирование факторов
+        $scope.normArray = getNormFactors(a);
     };
 
     /** Заполнение значениями по умолчанию */
