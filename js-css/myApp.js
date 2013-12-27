@@ -43,8 +43,11 @@ app.controller('MyCtrl', function MyCtrl($scope) {
         var a = convertTable2Array($scope.table);
         console.log('array', a);
 
-        //Нормирование факторов
-        $scope.normArray = getNormFactors(a);
+        //Нормирование факторов //TODO последняя строка тоже норм-ся
+        $scope.normMatrix = getNormFactors(a);
+
+        //Матрица планирования
+        $scope.planMatrix = getPlanMatrix();
     };
 
     /** Заполнение значениями по умолчанию */

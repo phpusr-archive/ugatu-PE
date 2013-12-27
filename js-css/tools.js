@@ -53,3 +53,23 @@ function getNormFactors(a) {
     return normArray;
 }
 
+/** Возвращает матрицу планирования */
+function getPlanMatrix() {
+    var rows = 8; //TODO
+    var columns = 11; //TODO
+    var planMatrix = [];
+
+    for (var i=0; i<rows; i++) {
+        planMatrix[i] = [];
+        for (var j=0; j<columns; j++) {
+            if (j==0) {
+                planMatrix[i][j] = 0;
+            } else {
+                planMatrix[i][j] = 'hz';
+            }
+        }
+    }
+
+    return planMatrix;
+}
+
