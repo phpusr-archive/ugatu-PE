@@ -3,7 +3,7 @@
 var app = angular.module('myApp', ['ngSanitize']);
 app.controller('MyCtrl', function MyCtrl($scope) {
     $scope.subject = 'ПЭ';
-    $scope.lab = 'РГР';
+    $scope.lab = 'РГР (Вариант 13)';
     var rows = 0, columns = 0;
 
     $scope.changeParams = function() {
@@ -46,15 +46,15 @@ app.controller('MyCtrl', function MyCtrl($scope) {
     /** Заполнение значениями по умолчанию */
     $scope.stdFill = function() {
         $scope.rows = 4;
-        $scope.columns = 4;
+        $scope.columns = 5;
 
         $scope.changeParams();
         loadData([
-			'x', 40, 30, 20, 10,
-            5, 50,100,180,250,
-            4, 80,70,80,230,
-            3, 40,180,120,210,
-            2, 300,220,150,150
+			'X', '', '', '', '', '',
+            '', 2.132,2.114,2.160,2.146,2.120,
+            '', 3.373,3.324,3.377,3.327,3.358,
+            '', 3.978,3.928,3.905,3.948,3.904,
+            'Y', 6.898,6.908,6.887,6.940,6.904
         ]);
         $scope.changeTable();
     };
