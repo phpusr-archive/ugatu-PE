@@ -39,8 +39,23 @@ app.controller('MyCtrl', function MyCtrl($scope) {
         }
     };
 
+    /** Преобразует таблицу в вещественный массив */
+    function convertTable2Array(table) {
+        var a = [];
+        for (var i=1; i<table.length; i++) {
+            var row = table[i];
+            a[i-1] = [];
+            for (var j=1; j<row.length; j++) {
+                a[i-1][j-1] = parseFloat(row[j].val);
+            }
+        }
+
+        return a;
+    }
+
     $scope.changeTable = function() {
-        //console.log('table', $scope.table);
+        var a = convertTable2Array($scope.table);
+        console.log('array', a);
 
     };
 
@@ -51,7 +66,7 @@ app.controller('MyCtrl', function MyCtrl($scope) {
 
         $scope.changeParams();
         loadData([
-			'X', '', '', '', '', '',
+			'X', '   ','   ','   ','   ','   ',
             '1', 2.132,2.114,2.160,2.146,2.120,
             '2', 3.373,3.324,3.377,3.327,3.358,
             '3', 3.978,3.928,3.905,3.948,3.904,
