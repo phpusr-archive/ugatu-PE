@@ -56,18 +56,25 @@ function getNormFactors(a) {
 /** Возвращает матрицу планирования */
 function getPlanMatrix() {
     var rows = 8; //TODO
-    var columns = 11; //TODO
+    var columns = 4; //TODO
     var planMatrix = [];
+    var charPlus = '+';
+    var charMinus = '-';
 
     for (var i=0; i<rows; i++) {
         planMatrix[i] = [];
-        for (var j=0; j<columns; j++) {
+        var bin = i.toString(2);
+        for (var j=columns-1; j>=0; j--) {
             if (j==0) {
-                planMatrix[i][j] = 0;
+                planMatrix[i][j] = charMinus;
             } else {
-                planMatrix[i][j] = 'hz';
+                var char = bin.charAt(bin.length - 1);
+                planMatrix[i][j] = char=='1' ? charPlus : charMinus;
+                bin = bin.slice(0, bin.length-1);
             }
         }
+
+        //TODO остальные
     }
 
     return planMatrix;
