@@ -78,6 +78,7 @@ function getPlanMatrix(minMaxX) {
     var planMatrix = [];
     var charPlus = '+';
     var charMinus = '-';
+    var y = [];
 
     for (var i=0; i<rows; i++) {
         planMatrix[i] = [];
@@ -100,10 +101,11 @@ function getPlanMatrix(minMaxX) {
         }
 
         //Подсчет Y
-        planMatrix[i][columns-1] = calcY(minMaxX, minValues, maxValues);
+        y[i] = calcY(minMaxX, minValues, maxValues);
+        planMatrix[i][columns-1] = y[i];
     }
 
-    return planMatrix;
+    return {planMatrix: planMatrix, y: y};
 }
 
 /** Расчет Y */
@@ -122,3 +124,24 @@ function calcY(minMaxX, minValues, maxValues) {
     return sum;
 }
 
+/** Оценки коэффициентов регрессии */
+function getRaitings(a, y) {
+    var b = [];
+
+    var sum = 0;
+    for (var i=0; i<y.length; i++) {
+        sum += y[i];
+    }
+    b[0] = sum / y.length;
+
+    for (i=1; i<=3; i++) {
+        sum = 0;
+        for (var j=0; j<a[0].length; j++) {
+            sum += a[i-1][j];
+        }
+        b[i] = sum * y[i] / y.length;
+    }
+
+    console.log('b', b);
+
+}

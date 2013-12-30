@@ -40,6 +40,7 @@ app.controller('MyCtrl', function MyCtrl($scope) {
     };
 
     $scope.changeTable = function() {
+        console.log('----Calculates begin----')
         var a = convertTable2Array($scope.table);
 
         //Нормирование факторов
@@ -50,7 +51,15 @@ app.controller('MyCtrl', function MyCtrl($scope) {
         var minMaxX = getMinMaxX(a);
 
         //Матрица планирования
-        $scope.planMatrix = getPlanMatrix(minMaxX);
+        var resPlan = getPlanMatrix(minMaxX);
+        $scope.planMatrix = resPlan.planMatrix;
+
+        //Значения функции отклика
+        var y = resPlan.y;
+
+        //Оценки коэффициентов регрессии
+        getRaitings(a, y);
+
     };
 
     /** Заполнение значениями по умолчанию */
@@ -60,7 +69,7 @@ app.controller('MyCtrl', function MyCtrl($scope) {
 
         $scope.changeParams();
         loadData([
-			'j', 'X1 ','X2 ','X3 ',
+			'i', 'X1 ','X2 ','X3 ',
             '1', 2.132,3.373,3.978,
             '2', 2.114,3.324,3.928,
             '3', 2.160,3.377,3.905
