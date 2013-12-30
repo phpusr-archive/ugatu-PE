@@ -41,8 +41,6 @@ app.controller('MyCtrl', function MyCtrl($scope) {
 
     $scope.changeTable = function() {
         var a = convertTable2Array($scope.table);
-        var y = calcY_array(a);
-        $scope.y = y;
 
         //Нормирование факторов
         var resNorm = getNormFactors(a);
@@ -52,7 +50,7 @@ app.controller('MyCtrl', function MyCtrl($scope) {
         var minMaxX = getMinMaxX(a);
 
         //Матрица планирования
-        $scope.planMatrix = getPlanMatrix(minMaxArray);
+        $scope.planMatrix = getPlanMatrix(minMaxX);
     };
 
     /** Заполнение значениями по умолчанию */

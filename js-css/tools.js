@@ -30,26 +30,6 @@ function getMinMaxX(a) {
     return minMaxArray;
 }
 
-/** TODO */
-function calcY_array(a) {
-    var y = [];
-    for (var i=0; i<a.length; i++) {
-        y[i] = calcY(a[i]);
-    }
-
-    return y;
-}
-
-/** TODO */
-function calcY(row) {
-    var sum = 0;
-    for (var j=0; j<row.length; j++) {
-        sum += row[j];
-    }
-
-    return sum;
-}
-
 /** Загрузка данных в таблицу */
 function loadData(data, table) {
     for (var i=0; i<table.length; i++) {
@@ -80,7 +60,7 @@ function getNormFactors(a) {
         var xi0 = (xiMax + xiMin)/2;
         var dxi = xi0 - xiMin; //xiMax - xi0;
         minMaxArray[i] = {min: xiMin, max: xiMax, xi0: xi0, dxi: dxi};
-        console.log(i+1, minMaxArray[i]);
+        if (false) console.log(i+1, minMaxArray[i]);
 
         //Находим нормированное значение xi для каждого фактора Xij
         for (j=0; j<row.length; j++) {
@@ -92,9 +72,9 @@ function getNormFactors(a) {
 }
 
 /** Возвращает матрицу планирования */
-function getPlanMatrix(minMaxArray) {
+function getPlanMatrix(minMaxX) {
     var rows = 8; //TODO
-    var columns = 4; //TODO
+    var columns = 5; //TODO
     var planMatrix = [];
     var charPlus = '+';
     var charMinus = '-';
@@ -102,19 +82,43 @@ function getPlanMatrix(minMaxArray) {
     for (var i=0; i<rows; i++) {
         planMatrix[i] = [];
         var bin = i.toString(2);
-        for (var j=columns-1; j>=0; j--) {
+        var maxValues = [], minValues = [];
+        for (var j=columns-2; j>=0; j--) {
             if (j==0) {
                 planMatrix[i][j] = charPlus;
             } else {
                 var char = bin.charAt(bin.length - 1);
-                planMatrix[i][j] = char=='1' ? charPlus : charMinus;
+                if (char=='1') {
+                    planMatrix[i][j] = charPlus;
+                    maxValues.push(j-1);
+                } else {
+                    planMatrix[i][j] = charMinus;
+                    minValues.push(j-1);
+                }
                 bin = bin.slice(0, bin.length-1);
             }
         }
 
-        //TODO остальные
+        //Подсчет Y
+        planMatrix[i][columns-1] = calcY(minMaxX, minValues, maxValues);
     }
 
     return planMatrix;
+}
+
+/** Расчет Y */
+function calcY(minMaxX, minValues, maxValues) {
+    var sum = 0;
+    for (j=0; j<minValues.length; j++) {
+        var index = minValues[j];
+        sum += minMaxX[index].min;
+        //console.log(minMaxX[index].min)
+    }
+    for (var j=0; j<maxValues.length; j++) {
+        index = maxValues[j];
+        sum += minMaxX[index].max;
+    }
+
+    return sum;
 }
 
