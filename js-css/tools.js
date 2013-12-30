@@ -14,6 +14,26 @@ function convertTable2Array(table) {
     return a;
 }
 
+/** TODO */
+function calcY_array(a) {
+    var y = [];
+    for (var i=0; i<a.length; i++) {
+        y[i] = calcY(a[i]);
+    }
+
+    return y;
+}
+
+/** TODO */
+function calcY(row) {
+    var sum = 0;
+    for (var j=0; j<row.length; j++) {
+        sum += row[j];
+    }
+
+    return sum;
+}
+
 /** Загрузка данных в таблицу */
 function loadData(data, table) {
     for (var i=0; i<table.length; i++) {
@@ -29,6 +49,7 @@ function loadData(data, table) {
 /** Возвращает номированные факторы */
 function getNormFactors(a) {
     var normArray = [];
+    var minMaxArray = [];
     for (var i=0; i<a.length; i++) {
         var row = a[i];
         normArray[i] = [];
@@ -42,7 +63,8 @@ function getNormFactors(a) {
         //Вычисляем Xi0 и интервал изменения фактора dXi
         var xi0 = (xiMax + xiMin)/2;
         var dxi = xi0 - xiMin; //xiMax - xi0;
-        console.log(i+1, 'min:', xiMin, 'max:', xiMax, 'xi0:', xi0, 'dxi:', dxi);
+        minMaxArray[i] = {min: xiMin, max: xiMax, xi0: xi0, dxi: dxi};
+        console.log(i+1, minMaxArray[i]);
 
         //Находим нормированное значение xi для каждого фактора Xij
         for (j=0; j<row.length; j++) {
@@ -50,11 +72,11 @@ function getNormFactors(a) {
         }
     }
 
-    return normArray;
+    return {normArray: normArray, minMaxArray: minMaxArray};
 }
 
 /** Возвращает матрицу планирования */
-function getPlanMatrix() {
+function getPlanMatrix(minMaxArray) {
     var rows = 8; //TODO
     var columns = 4; //TODO
     var planMatrix = [];
@@ -66,7 +88,7 @@ function getPlanMatrix() {
         var bin = i.toString(2);
         for (var j=columns-1; j>=0; j--) {
             if (j==0) {
-                planMatrix[i][j] = charMinus;
+                planMatrix[i][j] = charPlus;
             } else {
                 var char = bin.charAt(bin.length - 1);
                 planMatrix[i][j] = char=='1' ? charPlus : charMinus;

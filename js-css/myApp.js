@@ -41,13 +41,16 @@ app.controller('MyCtrl', function MyCtrl($scope) {
 
     $scope.changeTable = function() {
         var a = convertTable2Array($scope.table);
-        console.log('array', a);
+        var y = calcY_array(a);
+        $scope.y = y;
 
         //Нормирование факторов //TODO последняя строка тоже норм-ся
-        $scope.normMatrix = getNormFactors(a);
+        var resNorm = getNormFactors(a);
+        $scope.normMatrix = resNorm.normArray;
+        var minMaxArray = resNorm.minMaxArray;
 
         //Матрица планирования
-        $scope.planMatrix = getPlanMatrix();
+        $scope.planMatrix = getPlanMatrix(minMaxArray);
     };
 
     /** Заполнение значениями по умолчанию */
