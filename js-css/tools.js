@@ -127,21 +127,27 @@ function calcY(minMaxX, minValues, maxValues) {
 /** Оценки коэффициентов регрессии */
 function getRaitings(a, y) {
     var b = [];
-
-    var sum = 0;
-    for (var i=0; i<y.length; i++) {
-        sum += y[i];
+    b[0] = getB(a, y);
+    for (var i=1; i<=3; i++) {
+        b[i] = getB(a, y, i-1);
     }
-    b[0] = sum / y.length;
-
-    for (i=1; i<=3; i++) {
-        sum = 0;
-        for (var j=0; j<a[0].length; j++) {
-            sum += a[i-1][j];
-        }
-        b[i] = sum * y[i] / y.length;
-    }
+    //TODO остальные коефф.
 
     console.log('b', b);
 
+}
+
+/** TODO */
+function getB(a, y, j1, j2, j3) {
+    var sum = 0;
+    for (var i=0; i<a.length; i++) {
+        var row = a[i];
+        var a1 = j1!=null ? row[j1] : 1;
+        var a2 = j2!=null ? row[j2] : 1;
+        var a3 = j3!=null ? row[j3] : 1;
+        sum += a1 * a2 * a3 * y[i];
+        //console.log(a1, a2, a3, y[i])
+    }
+
+    return sum / y.length;
 }
