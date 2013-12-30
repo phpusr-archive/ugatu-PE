@@ -52,16 +52,15 @@ app.controller('MyCtrl', function MyCtrl($scope) {
 
     /** Заполнение значениями по умолчанию */
     $scope.stdFill = function() {
-        $scope.rows = 4;
-        $scope.columns = 5;
+        $scope.rows = 3;
+        $scope.columns = 3;
 
         $scope.changeParams();
         loadData([
-			'X', '   ','   ','   ','   ','   ',
-            '1', 2.132,2.114,2.160,2.146,2.120,
-            '2', 3.373,3.324,3.377,3.327,3.358,
-            '3', 3.978,3.928,3.905,3.948,3.904,
-            'Y', 6.898,6.908,6.887,6.940,6.904
+			'j', 'X1 ','X2 ','X3 ',
+            '1', 2.132,3.373,3.978,
+            '2', 2.114,3.324,3.928,
+            '3', 2.160,3.377,3.905
         ], $scope.table);
         $scope.changeTable();
     };
