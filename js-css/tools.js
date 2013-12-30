@@ -14,6 +14,22 @@ function convertTable2Array(table) {
     return a;
 }
 
+/** Возвращает Мин. и Макс. значения факторов */
+function getMinMaxX(a) {
+    var minMaxArray = [];
+    for (var j=0; j<a[0].length; j++) {
+        var max = a[0][j], min = a[0][j];
+        for (var i=0; i<a.length; i++) {
+            if (a[i][j] < min) min = a[i][j];
+            if (a[i][j] > max) max = a[i][j];
+        }
+
+        minMaxArray[j] = {min: min, max: max};
+    }
+
+    return minMaxArray;
+}
+
 /** TODO */
 function calcY_array(a) {
     var y = [];

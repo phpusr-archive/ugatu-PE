@@ -44,10 +44,12 @@ app.controller('MyCtrl', function MyCtrl($scope) {
         var y = calcY_array(a);
         $scope.y = y;
 
-        //Нормирование факторов //TODO последняя строка тоже норм-ся
+        //Нормирование факторов
         var resNorm = getNormFactors(a);
         $scope.normMatrix = resNorm.normArray;
+        //TODO
         var minMaxArray = resNorm.minMaxArray;
+        var minMaxX = getMinMaxX(a);
 
         //Матрица планирования
         $scope.planMatrix = getPlanMatrix(minMaxArray);
