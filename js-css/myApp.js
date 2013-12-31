@@ -68,6 +68,17 @@ app.controller('MyCtrl', function MyCtrl($scope) {
 
         //Дисперсии функции отклика
         $scope.disp = getDisp(y);
+
+        //t-критерии Стьюдента
+        $scope.critStud = getCritStudent($scope.b, $scope.disp);
+        //Уровень значимости
+        $scope.a = 0.95;
+        //Число степеней свободы
+        $scope.f = countY-1;
+        //t-табличное
+        $scope.t = 4.3020;
+        //Критерий Фишера
+        $scope.critFish = getCritFish(y.length, countY);
     };
 
     /** Заполнение значениями по умолчанию */

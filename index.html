@@ -114,6 +114,25 @@
         </table>
     </div>
 
+    <div class="matrix">
+        <h2>t-критерии Стьюдента</h2>
+        <table class="table table-striped table-hover table-bordered">
+            <tr>
+                <th>i</th>
+                <th>t<sub>i</sub></th>
+            </tr>
+            <tr ng-repeat="c in critStud">
+                <td>{{$index}}</td>
+                <td>{{c.toFixed(5)}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div><b>Уровень значимости:</b> {{a}}</div>
+    <div><b>Число степеней свободы:</b> {{f}}</div>
+    <div><b>t-табл.:</b> {{t}}</div>
+    <div><b>Критерий Фишера:</b> {{critFish}}</div>
+
 </div>
 </body>
 </html>

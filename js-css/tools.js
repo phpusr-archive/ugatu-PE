@@ -183,3 +183,18 @@ function getDisp(y) {
 
     return disp;
 }
+
+/** Подсчет t-критериев Стьюдента */
+function getCritStudent(b, disp) {
+    var critStud = [];
+    for (var i=0; i<b.length; i++) {
+        critStud[i] = b[i] * Math.sqrt(b.length) / Math.sqrt(disp[i]);
+    }
+
+    return critStud;
+}
+
+/** Подсчет критерия Фишера */
+function getCritFish(k, r) {
+    return r*r / (1-r*r) * (k-2);
+}
