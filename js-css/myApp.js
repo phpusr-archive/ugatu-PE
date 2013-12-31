@@ -62,7 +62,7 @@ app.controller('MyCtrl', function MyCtrl($scope) {
         //Уравнение регрессии
         $scope.equ = 'Y = ';
         for (var i=0; i<$scope.b.length; i++) {
-            $scope.equ += $scope.b[i] + '*X' + i;
+            $scope.equ += $scope.b[i].toFixed(3) + '*X' + i;
             if (i < $scope.b.length-1) $scope.equ += ' + ';
         }
 

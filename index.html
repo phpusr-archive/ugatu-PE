@@ -71,7 +71,10 @@
                 <th>X<sub>1</sub></th>
                 <th>X<sub>2</sub></th>
                 <th>X<sub>3</sub></th>
-                <th>Y<sub>j</sub></th>
+                <th>Y<sub>1,j</sub></th>
+                <th>Y<sub>2,j</sub></th>
+                <th>Y<sub>3,j</sub></th>
+                <th>&ycirc;</th>
             </tr>
             <tr ng-repeat="row in planMatrix">
                 <td>{{$index+1}}</td>
@@ -89,7 +92,7 @@
             </tr>
             <tr ng-repeat="c in b">
                 <td>{{$index}}</td>
-                <td>{{c}}</td>
+                <td>{{c.toFixed(5)}}</td>
             </tr>
         </table>
 

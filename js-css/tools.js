@@ -1,5 +1,7 @@
 'use strict';
 
+var countY = 3; //TODO
+
 /** Преобразует таблицу в вещественный массив */
 function convertTable2Array(table) {
     var a = [];
@@ -74,7 +76,7 @@ function getNormFactors(a) {
 /** Возвращает матрицу планирования */
 function getPlanMatrix(minMaxX) {
     var rows = 8; //TODO
-    var columns = 5; //TODO
+    var columns = 4; //TODO
     var planMatrix = [];
     var charPlus = '+';
     var charMinus = '-';
@@ -82,9 +84,10 @@ function getPlanMatrix(minMaxX) {
 
     for (var i=0; i<rows; i++) {
         planMatrix[i] = [];
+        y[i] = [];
         var bin = i.toString(2);
         var maxValues = [], minValues = [];
-        for (var j=columns-2; j>=0; j--) {
+        for (var j=columns-1; j>=0; j--) {
             if (j==0) {
                 planMatrix[i][j] = charPlus;
             } else {
@@ -101,8 +104,15 @@ function getPlanMatrix(minMaxX) {
         }
 
         //Подсчет Y
-        y[i] = calcY(minMaxX, minValues, maxValues);
-        planMatrix[i][columns-1] = y[i];
+        var sum = 0;
+        for (j=0; j<countY; j++) {
+            y[i][j] = calcY(minMaxX, minValues, maxValues);
+            planMatrix[i][columns+j] = y[i][j];
+            sum += y[i][j];
+        }
+        //Подсчет значения функции отклика
+        y[i][countY] = sum / countY;
+        planMatrix[i][columns+countY] = y[i][countY];
     }
 
     return {planMatrix: planMatrix, y: y};
@@ -121,7 +131,7 @@ function calcY(minMaxX, minValues, maxValues) {
         sum += minMaxX[index].max;
     }
 
-    return sum;
+    return sum + Math.random();
 }
 
 /** Оценки коэффициентов регрессии */
@@ -148,7 +158,7 @@ function getB(a, y, j1, j2, j3) {
         var a1 = j1!=null ? row[j1-1] : 1;
         var a2 = j2!=null ? row[j2-1] : 1;
         var a3 = j3!=null ? row[j3-1] : 1;
-        sum += a1 * a2 * a3 * y[i];
+        sum += a1 * a2 * a3 * y[i][countY];
     }
 
     return sum / y.length;
