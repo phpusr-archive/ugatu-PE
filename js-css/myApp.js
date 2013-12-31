@@ -77,8 +77,13 @@ app.controller('MyCtrl', function MyCtrl($scope) {
         $scope.f = countY-1;
         //t-табличное
         $scope.t = 4.3020;
+
         //Критерий Фишера
         $scope.critFish = getCritFish(y.length, countY);
+        $scope.f1 = $scope.f;
+        $scope.f2 = y.length - ($scope.f1+1)
+        $scope.a2 = 0.05;
+        $scope.fTable = 5.79;
     };
 
     /** Заполнение значениями по умолчанию */
