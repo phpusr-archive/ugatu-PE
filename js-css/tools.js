@@ -129,24 +129,26 @@ function getRaitings(a, y) {
     var b = [];
     b[0] = getB(a, y);
     for (var i=1; i<=3; i++) {
-        b[i] = getB(a, y, i-1);
+        b[i] = getB(a, y, i);
     }
-    //TODO остальные коефф.
+    b[4] = getB(a, y, 1, 2);
+    b[5] = getB(a, y, 1, 3);
+    b[6] = getB(a, y, 2, 3);
+    b[7] = getB(a, y, 1, 2, 3);
 
-    console.log('b', b);
-
+    if (false) console.log('b', b);
+    return b;
 }
 
-/** TODO */
+/** Возвращает коэффициент */
 function getB(a, y, j1, j2, j3) {
     var sum = 0;
     for (var i=0; i<a.length; i++) {
         var row = a[i];
-        var a1 = j1!=null ? row[j1] : 1;
-        var a2 = j2!=null ? row[j2] : 1;
-        var a3 = j3!=null ? row[j3] : 1;
+        var a1 = j1!=null ? row[j1-1] : 1;
+        var a2 = j2!=null ? row[j2-1] : 1;
+        var a3 = j3!=null ? row[j3-1] : 1;
         sum += a1 * a2 * a3 * y[i];
-        //console.log(a1, a2, a3, y[i])
     }
 
     return sum / y.length;

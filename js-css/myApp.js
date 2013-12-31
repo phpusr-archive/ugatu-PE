@@ -58,8 +58,16 @@ app.controller('MyCtrl', function MyCtrl($scope) {
         var y = resPlan.y;
 
         //Оценки коэффициентов регрессии
-        getRaitings(a, y);
+        $scope.b = getRaitings(a, y);
+        //Уравнение регрессии
+        $scope.equ = 'Y = ';
+        for (var i=0; i<$scope.b.length; i++) {
+            $scope.equ += $scope.b[i] + '*X' + i;
+            if (i < $scope.b.length-1) $scope.equ += ' + ';
+        }
 
+        //Дисперсии функции отклика
+        //getDisp(y)
     };
 
     /** Заполнение значениями по умолчанию */
