@@ -153,3 +153,16 @@ function getB(a, y, j1, j2, j3) {
 
     return sum / y.length;
 }
+
+/** TODO */
+function getDisp(y) {
+    var sum = 0;
+    for (var i=0; i<y.length; i++) {
+        sum += y[i];
+    }
+    var avgY = sum / y.length;
+
+    for (i=0; i<y.length; i++) {
+        //TODO continue
+    }
+}
