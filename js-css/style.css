@@ -1,0 +1,33 @@
+div.content {
+    margin-left: 20px;
+}
+
+#labels input {
+    height: 30px;
+}
+#labels input[type=number] {
+    width: 50px;
+}
+
+#table table {
+    width: auto;
+}
+
+#table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+input.min-size {
+    width: 80px;
+    height: 30px;
+    text-align: center;
+}
+
+td.title input {
+    font-weight: bold;
+}
+
+div.matrix table {
+    width: auto;
+}

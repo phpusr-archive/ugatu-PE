@@ -1,0 +1,144 @@
+<html ng-app="myApp" ng-controller="MyCtrl">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta data-author="Doronin Sergey" />
+
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css" />
+
+	<script src="lib/angular/angular.js"></script>
+	<script src="lib/angular/angular-sanitize.js"></script>
+
+    <script src="js-css/tools.js"></script>
+    <script src="js-css/myApp.js"></script>
+    <link rel="stylesheet" type="text/css" href="js-css/style.css" />
+
+    <title>{{subject}} {{lab}}</title>
+</head>
+<body>
+<div class="content">
+
+    <div class="page-header">
+	    <h1>{{subject}} <small>{{lab}}</small></h1>
+    </div>
+
+    <div id="labels">
+        <div>
+            <label>
+                <span class="lead">Кол-во строк: </span>
+                <input type="number" ng-model="rows" ng-change="changeParams()" />
+            </label>
+        </div>
+        <div>
+            <label>
+                <span class="lead">Кол-во столбцов: </span>
+                <input type="number" ng-model="columns" ng-change="changeParams()" />
+            </label>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div id="table">
+        <table class="table table-striped table-hover table-bordered">
+            <tr ng-repeat="row in table">
+                <td ng-repeat="c in row" ng-class="c.title ? 'title' : ''">
+                    <input type="text" class="min-size" ng-model="c.val" ng-change="changeTable()" />
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            <button class="btn" ng-click="stdFill()">Сбросить</button>
+            <button class="btn" ng-click="changeParams()">Random</button>
+        </div>
+    </div>
+
+    <div class="matrix">
+        <h2>Нормированная матрица</h2>
+        <table class="table table-striped table-hover table-bordered">
+            <tr ng-repeat="row in normMatrix">
+                <td ng-repeat="c in row">{{c.toFixed(3)}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="matrix">
+        <h2>Матрица планирования</h2>
+        <table class="table table-striped table-hover table-bordered">
+            <tr>
+                <th>i</th>
+                <th>X<sub>0</sub></th>
+                <th>X<sub>1</sub></th>
+                <th>X<sub>2</sub></th>
+                <th>X<sub>3</sub></th>
+                <th>Y<sub>1,j</sub></th>
+                <th>Y<sub>2,j</sub></th>
+                <th>Y<sub>3,j</sub></th>
+                <th>&ycirc;</th>
+            </tr>
+            <tr ng-repeat="row in planMatrix">
+                <td>{{$index+1}}</td>
+                <td ng-repeat="c in row track by $index">{{c/c ? c.toFixed(3) : c}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="matrix">
+        <h2>Оценки коэффициентов регресии</h2>
+        <table class="table table-striped table-hover table-bordered">
+            <tr>
+                <th>i</th>
+                <th>b<sub>i</sub></th>
+            </tr>
+            <tr ng-repeat="c in b">
+                <td>{{$index}}</td>
+                <td>{{c.toFixed(5)}}</td>
+            </tr>
+        </table>
+
+        <h2>Полученное уравнение регрессии будет иметь вид:</h2>
+        <div>{{equ}}</div>
+    </div>
+
+    <div class="matrix">
+        <h2>Дисперсия функции отклика</h2>
+        <table class="table table-striped table-hover table-bordered">
+            <tr>
+                <th>i</th>
+                <th>D(Y<sub>i</sub>)</th>
+            </tr>
+            <tr ng-repeat="c in disp">
+                <td>{{$index+1}}</td>
+                <td>{{c.toFixed(5)}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="matrix">
+        <h2>t-критерии Стьюдента</h2>
+        <table class="table table-striped table-hover table-bordered">
+            <tr>
+                <th>i</th>
+                <th>t<sub>i</sub></th>
+            </tr>
+            <tr ng-repeat="c in critStud">
+                <td>{{$index}}</td>
+                <td>{{c.toFixed(5)}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div><b>Уровень значимости:</b> {{a}}</div>
+    <div><b>Число степеней свободы:</b> {{f}}</div>
+    <div><b>t-табл.:</b> {{t}}</div>
+
+    <br/>
+    <div><b>Критерий Фишера:</b> {{critFish}}</div>
+    <div><b>f1:</b> {{f1}}</div>
+    <div><b>f2:</b> {{f2}}</div>
+    <div><b>a:</b> {{a2}}</div>
+    <div><b>F<sub>табл.</sub>:</b> {{fTable}}</div>
+
+</div>
+</body>
+</html>
