@@ -100,6 +100,20 @@
         <div>{{equ}}</div>
     </div>
 
+    <div class="matrix">
+        <h2>Дисперсия функции отклика</h2>
+        <table class="table table-striped table-hover table-bordered">
+            <tr>
+                <th>i</th>
+                <th>D(Y<sub>i</sub>)</th>
+            </tr>
+            <tr ng-repeat="c in disp">
+                <td>{{$index+1}}</td>
+                <td>{{c.toFixed(5)}}</td>
+            </tr>
+        </table>
+    </div>
+
 </div>
 </body>
 </html>

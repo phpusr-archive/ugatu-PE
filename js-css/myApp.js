@@ -67,7 +67,7 @@ app.controller('MyCtrl', function MyCtrl($scope) {
         }
 
         //Дисперсии функции отклика
-        //getDisp(y)
+        $scope.disp = getDisp(y);
     };
 
     /** Заполнение значениями по умолчанию */

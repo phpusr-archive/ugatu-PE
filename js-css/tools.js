@@ -131,7 +131,7 @@ function calcY(minMaxX, minValues, maxValues) {
         sum += minMaxX[index].max;
     }
 
-    return sum + Math.random();
+    return sum + Math.random()*0.1;
 }
 
 /** Оценки коэффициентов регрессии */
@@ -164,15 +164,22 @@ function getB(a, y, j1, j2, j3) {
     return sum / y.length;
 }
 
-/** TODO */
+/** Возвращает дисперсию функции отклика */
 function getDisp(y) {
     var sum = 0;
     for (var i=0; i<y.length; i++) {
-        sum += y[i];
+        sum += y[i][countY];
     }
     var avgY = sum / y.length;
 
+    var disp = [];
     for (i=0; i<y.length; i++) {
-        //TODO continue
+        sum = 0;
+        for (var j=0; j<y[i].length-1; j++) {
+            sum += Math.pow(y[i][j]-avgY, 2);
+        }
+        disp[i] = sum / (countY-1);
     }
+
+    return disp;
 }
